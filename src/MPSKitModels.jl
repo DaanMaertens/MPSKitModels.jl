@@ -12,7 +12,7 @@ module MPSKitModels
     export nonsym_xxz_ham,su2_xxx_ham,u1_xxz_ham
     include("xxz.jl");
 
-    export su2u1_grossneveu,su2u1_orderpars
+    export su2u1_grossneveu,su2u1_orderpars,su2su2_grossneveu,su2su2_orderpars
     include("grossneveu.jl");
 
     export nonsym_qstateclock_mpo
