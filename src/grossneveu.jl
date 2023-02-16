@@ -173,7 +173,7 @@ function su2su2_grossneveu(;g=0.,v=0.)
 end
 
 """
-    su2su2_grossneveu(vs::Vector{Float64};g=0.)
+    su2su2_grossneveu_v(vs::Vector{Float64};g=0.)
 
 Returns the v-part of the SU₂⊗SU₂ Gross-Neveu Hamiltonian in curved spacetime for non-uniform v(x). The array of numbers vs contains the value of v(x) sampled at discrete points. The length of vs determines the amount of sites.
 """

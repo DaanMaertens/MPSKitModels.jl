@@ -16,7 +16,7 @@ module MPSKitModels
     export nonsym_xxz_ladder_finite, nonsym_xxz_ladder_infinite, su2_xxx_ladder
     include("xxz.jl");
 
-    export su2u1_grossneveu,su2u1_orderpars,su2su2_grossneveu,su2su2_orderpars
+    export su2u1_grossneveu,su2u1_orderpars,su2su2_grossneveu,su2su2_grossneveu_v,su2su2_orderpars
     include("grossneveu.jl");
 
     export nonsym_qstateclock_mpo
