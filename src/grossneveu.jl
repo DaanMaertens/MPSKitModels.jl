@@ -102,7 +102,7 @@ end
 
 Returns the SU₂⊗SU₂ Gross-Neveu Hamiltonian in curved spacetime for uniform v(x)=v.
 """
-function su2su2_grossneveu(;g=0.,v=0.)
+function su2su2_grossneveu(;g2=0.,v=0.)
     ph       = Rep[SU₂×SU₂]( (1//2,0)=>1, (0,1//2)=>1 )
     bigonleg = Rep[SU₂×SU₂]( (0,0)=>1, (1//2,1//2)=>1)
     smallonleg = Rep[SU₂×SU₂]( (1//2,1//2)=>1)
@@ -147,7 +147,7 @@ function su2su2_grossneveu(;g=0.,v=0.)
         ham += MPOHamiltonian([-0.5*v*LK2, Z, RK2])
 
     end
-    if !iszero(g)
+    if !iszero(g2)
 
         Cmin = TensorMap(ones, ComplexF64, bigonleg*ph, bigonleg*ph)
         blocks(Cmin)[Irrep[SU₂](0)⊠Irrep[SU₂](1//2)] =  -conj(sqrt(2)/2*[0 1; im 0])
@@ -165,7 +165,7 @@ function su2su2_grossneveu(;g=0.,v=0.)
         @tensor Cdiffsq[-1 -2;-3 -4] := f3[-1,1,2]*Cmin[1,3,-3,5]*Cmin[2,-2,3,4]*f2[5,4,-4]
         @tensor Rdiffsq[-1 -2;-3 -4] := f3[-1,1,2]*RK[1,3,-3,5]*RK[2,-2,3,4]*f4[5,4,-4]
 
-        ham += MPOHamiltonian([-0.25*g^2*Ldiffsq, Cdiffsq, Rdiffsq])
+        ham += MPOHamiltonian([-0.25*g2*Ldiffsq, Cdiffsq, Rdiffsq])
 
     end
 
