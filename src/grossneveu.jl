@@ -102,7 +102,7 @@ end
 
 Returns the SU₂⊗SU₂ Gross-Neveu Hamiltonian in curved spacetime for uniform v(x)=v.
 """
-function su2su2_grossneveu(;g2=0.,v=0.)
+function su2su2_grossneveu(;g2=0.,v=0., m=0.)
     ph       = Rep[SU₂×SU₂]( (1//2,0)=>1, (0,1//2)=>1 )
     bigonleg = Rep[SU₂×SU₂]( (0,0)=>1, (1//2,1//2)=>1)
     smallonleg = Rep[SU₂×SU₂]( (1//2,1//2)=>1)
@@ -168,6 +168,21 @@ function su2su2_grossneveu(;g2=0.,v=0.)
         ham += MPOHamiltonian([-0.25*g2*Ldiffsq, Cdiffsq, Rdiffsq])
 
     end
+    if !iszero(m)
+
+        Cmin = TensorMap(ones, ComplexF64, bigonleg*ph, bigonleg*ph)
+        blocks(Cmin)[Irrep[SU₂](0)⊠Irrep[SU₂](1//2)] =  -conj(sqrt(2)/2*[0 1; im 0])
+        blocks(Cmin)[Irrep[SU₂](1//2)⊠Irrep[SU₂](0)] =  -conj(sqrt(2)/2*[0 im; -1 0])
+        blocks(Cmin)[Irrep[SU₂](1)⊠Irrep[SU₂](1//2)] =  zeros(1,1)
+        blocks(Cmin)[Irrep[SU₂](1//2)⊠Irrep[SU₂](1)] =  zeros(1,1)
+        Cmin = permute(Cmin,(1,2),(4,3));
+
+        tmp = repeat(MPOHamiltonian([0.5m*LK, Cmin, RK]),2)
+        tmp[2][2,3] *= -m
+
+        ham += tmp
+
+    end
 
     return ham
 end
@@ -199,7 +214,7 @@ function su2su2_grossneveu_v(vs::Vector{Float64})
 
     ham = repeat(MPOHamiltonian([-0.5*LK2, Z, RK2]),length(vs))
     for (i,vi) in enumerate(vs)
-        ham[i][1,2] *= vi
+        ham[i][2,3] *= vi
     end
     return ham
 end
