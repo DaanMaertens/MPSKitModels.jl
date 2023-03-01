@@ -180,6 +180,7 @@ function su2su2_grossneveu(;g2=0.,v=0., m=0.)
         tmp = repeat(MPOHamiltonian([0.5m*LK, Cmin, RK]),2)
         tmp[2][2,3] *= -m
 
+        ham = repeat(ham,2)
         ham += tmp
 
     end
