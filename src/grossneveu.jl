@@ -178,7 +178,7 @@ function su2su2_grossneveu(;g2=0.,v=0., m=0.)
         Cmin = permute(Cmin,(1,2),(4,3));
 
         tmp = repeat(MPOHamiltonian([0.5m*LK, Cmin, RK]),2)
-        tmp[2][2,3] *= -m
+        tmp[2][2,3] *= -1
 
         ham = repeat(ham,2)
         ham += tmp
