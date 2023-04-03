@@ -168,6 +168,9 @@ function su2su2_grossneveu(;g2=0.,v=0., m=0.)
         ham += MPOHamiltonian([-0.25*g2*Ldiffsq, Cdiffsq, Rdiffsq])
 
     end
+
+    ham = repeat(ham,2)
+
     if !iszero(m)
 
         Cmin = TensorMap(ones, ComplexF64, bigonleg*ph, bigonleg*ph)
@@ -179,8 +182,6 @@ function su2su2_grossneveu(;g2=0.,v=0., m=0.)
 
         tmp = repeat(MPOHamiltonian([0.5m*LK, Cmin, RK]),2)
         tmp[2][2,3] *= -1
-
-        ham = repeat(ham,2)
         ham += tmp
 
     end
@@ -262,5 +263,5 @@ function su2su2_orderpars()
     blocks(O_op)[SU₂(0)×U₁(1)]    =  1*ones(1,1)
     =#
 
-    return MPOHamiltonian([LK2, RK2]), MPOHamiltonian([LK2, Z, RK2])#, permute(RK2,(1,2),(4,3)) #, [O_op], [LQ, RQ]
+    return [LK2, RK2], [LK2, Z, RK2]#, permute(RK2,(1,2),(4,3)) #, [O_op], [LQ, RQ]
 end
