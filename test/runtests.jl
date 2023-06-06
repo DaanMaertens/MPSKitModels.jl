@@ -1,11 +1,31 @@
-using Test,TensorKit,MPSKit,MPSKitModels
+using Test
+import TensorOperations
+TensorOperations.disable_cache()
 
-@testset "xxz" begin
-    @testset "nonsym_xxz_ham" begin
-        th = nonsym_xxz_ham()
-        ts = InfiniteMPS([ℂ^3],[ℂ^48]);
-        (ts,pars,_) = find_groundstate(ts,th,VUMPS(maxiter=400,verbose=false));
-        (energies,Bs) = excitations(th,QuasiparticleAnsatz(),Float64(pi),ts,pars);
-        @test energies[1] ≈ 0.41047925 atol=1e-4
-    end
+@testset "lattices" verbose = true begin
+    include("lattices.jl")
+end
+
+@testset "Spin operators" begin
+    include("spinoperators.jl")
+end
+
+@testset "Boson operators" begin
+    include("bosonoperators.jl")
+end
+
+@testset "fermion operators" begin
+    include("fermionoperators.jl")
+end
+
+@testset "transverse field ising model" begin
+    include("tfim.jl")
+end
+
+@testset "heisenberg model" begin
+    include("heisenberg.jl")
+end
+
+@testset "sixvertex model" begin
+    include("sixvertex.jl")
 end
