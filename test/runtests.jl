@@ -1,6 +1,4 @@
 using Test
-using MPSKitModels
-
 import TensorOperations
 TensorOperations.disable_cache()
 

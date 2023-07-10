@@ -1,7 +1,7 @@
 # Lattices
 
 ```@meta
-CurrentModule = MPSKitModels
+CurrentModule = TensorKit
 ```
 
 Models can be defined on different lattices, and several lattices lend themselves to a description in terms of a (quasi-)one-dimensional operator.
