@@ -45,6 +45,8 @@ export sixvertex
 export hard_hexagon
 export qstate_clock
 
+export su2u1_grossneveu,su2u1_orderpars,su2su2_grossneveu,su2su2_grossneveu_v,su2su2_orderpars
+
 include("utility.jl")
 
 include("lattices/lattices.jl")
@@ -64,6 +66,8 @@ include("operators/bosonoperators.jl")
 include("models/hamiltonians.jl")
 include("models/quantum_chemistry.jl")
 include("models/transfermatrices.jl")
+
+include("grossneveu.jl")
 
 include("precompile.jl")
 
