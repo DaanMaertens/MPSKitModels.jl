@@ -4,30 +4,37 @@
 CurrentModule = MPSKitModels
 ```
 
+There are several different operators defined, which all follow an interface similar to the following:
+```julia
+operator([elt::Type{<:Number}=ComplexF64], [symmetry::Type{<:Sector}=Trivial]; kwargs...)
+```
+Here, the scalar type of the operator is defined by `elt`, while the symmetry can be chosen through the `symmetry` argument.
+Other parameters are supplied as keywords.
+The special keyword argument `side` can be used for operators that require an additional virtual space to satisfy the symmetry constraints, in which case it determines where this auxiliary space is located, either to the left `:L` (default) or to the right `:R`.
+
 ## Spin operators
 
-The spin operators `sigma_x`, `sigma_y` and `sigma_z` are defined such that they obey the spin commutation relations ``[Sⱼ, Sₖ] = i ɛⱼₖₗ Sₗ``.
+The spin operators `S_x`, `S_y` and `S_z` are defined such that they obey the spin commutation relations ``[Sⱼ, Sₖ] = i ɛⱼₖₗ Sₗ``.
 Additionally, the ladder operators are defined as ``S± = Sˣ ± i Sʸ``.
 Several combinations are defined that act on two spins.
 
-When imposing symmetries, by convention we choose `sigma_z` as the diagonal operator, such that for non-trivial symmetry only the combinations that are invariant under this symmetry are implemented.
-As such, when defining the other single-site operators with a symmetry, an additional virtual space is required to carry the charge, which is by convention chosen as the second space in a (2,1) tensor.
+When imposing symmetries, by convention we choose `S_z` as the diagonal operator for U₁, and `S_x` as the diagonal operator for ℤ₂.
 
 ```@docs
-sigma_x
-sigma_y
-sigma_z
-sigma_plus
-sigma_min
-sigma_xx
-sigma_yy
-sigma_zz
-sigma_plusmin
-sigma_minplus
-sigma_exchange
+S_x
+S_y
+S_z
+S_plus
+S_min
+S_xx
+S_yy
+S_zz
+S_plusmin
+S_minplus
+S_exchange
 ```
 
-For convenience, the spin 1/2 case, which reduces to the pauli matrices, have the exported unicode symbols:
+For convenience, the Pauli matrices can also be recovered as ``σⁱ = 2 Sⁱ``.
 
 ```@docs
 σˣ

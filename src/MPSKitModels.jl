@@ -1,7 +1,6 @@
 module MPSKitModels
 
 using TensorKit, MPSKit
-using LinearAlgebra: Diagonal, diag
 using MacroTools: @capture, postwalk
 using MPSKit: @plansor, _lastspace, _firstspace
 using TensorOperations
@@ -10,11 +9,44 @@ import LinearAlgebra
 
 export AbstractLattice
 export InfiniteChain, FiniteChain
-export InfiniteCylinder, InfiniteHelix, InfiniteStrip
+export InfiniteCylinder, InfiniteHelix, InfiniteStrip, InfiniteLadder
 export HoneycombXC, HoneycombYC
 export LatticePoint, linearize_index
-export vertices, nearest_neighbours, bipartition
+export vertices, nearest_neighbours, next_nearest_neighbours, bipartition
 export SnakePattern, frontandback_pattern, backandforth_pattern
+
+export LocalOperator, SumOfLocalOperators
+export @mpoham
+
+export spinmatrices, nonsym_spintensors, nonsym_bosonictensors
+
+export S_x, S_y, S_z, S_plus, S_min
+export S_xx, S_yy, S_zz, S_plusmin, S_minplus, S_exchange
+export σˣ, σʸ, σᶻ, σ⁺, σ⁻, σˣˣ, σʸʸ, σᶻᶻ, σ⁺⁻, σ⁻⁺, σσ
+
+export a_plus, a_min, a_plusmin, a_minplus, a_number
+export a⁺, a⁻
+
+export c_plus, c_min, c_plusplus, c_minmin, c_plusmin, c_minplus, c_number
+export c⁺, c⁻, c⁺⁺, c⁻⁻, c⁺⁻, c⁻⁺ 
+export e_plus, e_min, e_plusplus, e_minmin, e_plusmin, e_minplus
+export e_number, e_number_up, e_number_down, e_number_updown
+export e⁺, e⁻, e⁺⁺, e⁻⁻, e⁺⁻, e⁻⁺
+
+export transverse_field_ising
+export kitaev_model
+export heisenberg_XXX, heisenberg_XXZ, heisenberg_XYZ
+export bilinear_biquadratic_model
+export hubbard_model, bose_hubbard_model
+export quantum_chemistry_hamiltonian
+
+export classical_ising
+export sixvertex
+export hard_hexagon
+export qstate_clock
+
+include("utility.jl")
+
 include("lattices/lattices.jl")
 include("lattices/latticepoints.jl")
 include("lattices/chains.jl")
@@ -23,36 +55,15 @@ include("lattices/triangularlattice.jl")
 include("lattices/snakepattern.jl")
 
 
-export LocalOperator, SumOfLocalOperators
 include("operators/localoperators.jl")
+include("operators/mpoham.jl")
 
-const ℤ₁ = ℤ{1}
-
-export sigma_x, sigma_y, sigma_z, sigma_plus, sigma_min
-export sigma_xx, sigma_yy, sigma_zz, sigma_plusmin, sigma_minplus, sigma_exchange
-export σˣ, σʸ, σᶻ, σ⁺, σ⁻, σˣˣ, σʸʸ, σᶻᶻ, σ⁺⁻, σ⁻⁺, σσ
 include("operators/spinoperators.jl")
-
-export cc, ccdag, cdagc, cdagcdag, number
-export c_plus, c_min, c_number, e_plus, e_min, e_number
-export c⁺, c⁻, e⁺, e⁻
 include("operators/fermionoperators.jl")
-export a_plus, a_min
 include("operators/bosonoperators.jl")
 
-export @mpoham
-include("mpoham.jl")
-
-export transverse_field_ising, free_fermion_ising
-export xxx, xxz, xyz
-export bilinear_biquadratic_heisenberg
-export hubbard_model, bose_hubbard_model
 include("models/hamiltonians.jl")
-
-export classical_ising
-export sixvertex
-export hard_hexagon
-export qstate_clock
+include("models/quantum_chemistry.jl")
 include("models/transfermatrices.jl")
 
 export spinmatrices, nonsym_spintensors, nonsym_bosonictensors
@@ -74,5 +85,6 @@ export quantum_chemistry_hamiltonian
 include("quantum_chemistry.jl")
 
 include("deprecate.jl")
+include("precompile.jl")
 
 end
